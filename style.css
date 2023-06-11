@@ -1,0 +1,148 @@
+* {
+    margin: 0;
+    padding: 0;
+    color: #fff;
+    font-family: Exo, Helvetica, Arial, sans-serif;
+}
+
+::selection {
+    background-color: #fff8;
+    color: #333;
+}
+
+html, body {
+    height: 100vh;
+}
+
+body {
+    background-image: url(https://picsum.photos/1920/1080);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed;
+    background-color: #000;
+}
+
+.header {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    user-select: none;
+}
+
+.welcome {
+    background-color: #0004;
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: 0 0 5px #0002;
+    height: fit-content;
+    display: flex;
+}
+
+.welcome p {
+    font-size: 20px;
+}
+
+.welcome input {
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+}
+
+.time {
+    background-color: #0004;
+    width: 160px;
+    text-align: center;
+    font-size: 36px;
+    font-weight: 200;
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: 0 0 5px #0002;
+}
+
+.search {
+    margin: 0 auto;
+    width: 100%;
+    text-align: center;
+    font-size: 26px;
+}
+
+#search {
+    margin-top: 100px;
+    border: none;
+    background-color: #0004;
+    backdrop-filter: blur(10px);
+    font-size: 26px;
+    padding: 12px;
+    border-radius: 15px;
+    outline: none;
+    width: 30%;
+    box-shadow: 0 0 5px #0002;
+    transition: box-shadow .3s;
+    text-shadow: 1px 1px 3px #0003;
+}
+
+#search::placeholder {
+    color: #eee;
+    font-weight: 100;
+}
+
+#search:focus {
+    box-shadow: 0 0 0 4px #0008;
+}
+
+.search i {
+    transform: translateX(-50px);
+    cursor: pointer;
+    padding: 5px;
+}
+
+.favorites {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: #0004;
+    backdrop-filter: blur(10px);
+    width: fit-content;
+    margin: 0 auto;
+    margin-top: 400px;
+    border-radius: 15px;
+    gap: 10px;
+    padding: 10px;
+    user-select: none;
+}
+
+.favorites a {
+    text-decoration: none;
+}
+
+.favorites article {
+    display: flex;
+    flex-direction: column;
+    height: 90px;
+    width: 100px;
+    background-color: #0004;
+    border-radius: 15px;
+    padding: 10px 15px;
+    text-align: center;
+    justify-content: space-around;
+    align-items: center;
+    text-transform: capitalize;
+    cursor: pointer;
+    transition: box-shadow .3s;
+}
+
+.favorites article:hover {
+    box-shadow: 0 0 0 4px #0008;
+}
+
+.favorites article i {
+    font-size: 30px;
+}
+
+.favorites article img {
+    width: 40px;
+    border-radius: 5px;
+}

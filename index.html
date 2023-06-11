@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start page</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <header class="header">
+
+        <div class="welcome">
+            <p id="welcome"></p>
+        </div>
+
+        <div class="time">
+            <p id="time">00:00:00</p>
+        </div>
+        
+    </header>
+
+    <div class="search">
+        <input type="text" placeholder="Search" id="search">
+        <i class="fa-solid fa-search" onclick="Search();" title="Search on Google"></i>
+    </div>
+
+    <div class="favorites">
+        <a href="https://youtube.com/">
+            <article>
+                <img src="images/youtube.png" alt="">
+                <p>youtube</p>
+            </article>
+        </a>
+
+        <a href="https://mail.google.com/mail/u/1/#inbox">
+            <article>
+                <img src="images/gmail.png" alt="">
+                <p>gmail personal</p>
+            </article>
+        </a>
+
+        <a href="https://mail.google.com/mail/u/0/#inbox">
+            <article>
+                <img src="images/gmail.png" alt="">
+                <p>gmail</p>
+            </article>
+        </a>
+        
+        <a href="https://translate.google.rs/u/1/?hl=sr&sl=en&tl=de&op=translate">
+            <article>
+                <img src="images/translate.png" alt="">
+                <p>translate</p>
+            </article>
+        </a>
+
+        <a href="https://www.eponuda.com/">
+            <article>
+                <img src="images/eponuda.jpg" alt="">
+                <p>eponuda</p>
+            </article>
+        </a>
+        
+        <a href="https://github.com/">
+            <article>
+                <i class="fa-brands fa-github"></i>
+                <p>github</p>
+            </article>
+        </a>
+        
+        <a href="https://novi.kupujemprodajem.com/">
+            <article>
+                <img src="images/kp.png" alt="">
+                <p>kupujem prodajem</p>
+            </article>
+        </a>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
