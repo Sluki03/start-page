@@ -78,7 +78,7 @@ body {
     padding: 12px;
     border-radius: 15px;
     outline: none;
-    width: 30%;
+    width: 600px;
     box-shadow: 0 0 5px #0002;
     transition: box-shadow .3s;
     text-shadow: 1px 1px 3px #0003;
@@ -107,7 +107,8 @@ body {
     backdrop-filter: blur(10px);
     width: fit-content;
     margin: 0 auto;
-    margin-top: 400px;
+    top: 70%;
+    position: sticky;
     border-radius: 15px;
     gap: 10px;
     padding: 10px;
@@ -145,4 +146,10 @@ body {
 .favorites article img {
     width: 40px;
     border-radius: 5px;
+}
+
+@media screen and (max-width: 768px) {
+    #search {
+        width: 80%;
+    }
 }
