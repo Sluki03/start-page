@@ -47,7 +47,7 @@ function Time() {
 }
 
 // running Time function every second (it updates the whole header)
-var timer = setInterval(Time, 1000);
+var timer = setInterval(Time, 500);
 
 
 // Search

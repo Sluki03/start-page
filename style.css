@@ -52,10 +52,10 @@ body {
 
 .time {
     background-color: #0004;
-    width: 160px;
+    width: 80px;
     text-align: center;
-    font-size: 36px;
-    font-weight: 200;
+    font-size: 20px;
+    font-weight: 400;
     backdrop-filter: blur(10px);
     border-radius: 15px;
     padding: 15px;
@@ -64,7 +64,7 @@ body {
 
 .search {
     margin: 0 auto;
-    width: 100%;
+    gap: 10px;
     text-align: center;
     font-size: 26px;
 }
@@ -76,11 +76,12 @@ body {
     backdrop-filter: blur(10px);
     font-size: 26px;
     padding: 12px;
+    padding-right: 0px;
     border-radius: 15px;
     outline: none;
     width: 600px;
     box-shadow: 0 0 5px #0002;
-    transition: box-shadow .3s;
+    transition: padding .3s, margin-top .5s;
     text-shadow: 1px 1px 3px #0003;
 }
 
@@ -90,13 +91,23 @@ body {
 }
 
 #search:focus {
-    box-shadow: 0 0 0 4px #0008;
+    padding: 17px;
+    margin-top: 120px;
 }
 
 .search i {
-    transform: translateX(-50px);
     cursor: pointer;
-    padding: 5px;
+    padding: 10px;
+    color: #fffb;
+    background-color: #0004;
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    transition: box-shadow .3s;
+    margin-left: -60px;
+}
+
+.search i:hover {
+    box-shadow: 0 0 0 3px #0008;
 }
 
 .favorites {
@@ -122,8 +133,9 @@ body {
 .favorites article {
     display: flex;
     flex-direction: column;
-    height: 90px;
-    width: 100px;
+    height: 70px;
+    width: 80px;
+    font-size: 14px;
     background-color: #0004;
     border-radius: 15px;
     padding: 10px 15px;
@@ -140,11 +152,11 @@ body {
 }
 
 .favorites article i {
-    font-size: 30px;
+    font-size: 24px;
 }
 
 .favorites article img {
-    width: 40px;
+    width: 28px;
     border-radius: 5px;
 }
 
