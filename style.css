@@ -128,6 +128,15 @@ body {
 
 .favorites a {
     text-decoration: none;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: box-shadow .3s;
+    outline: none;
+}
+
+.favorites a:hover,
+.favorites a:focus {
+    box-shadow: 0 0 0 4px #0008;
 }
 
 .favorites article {
@@ -137,18 +146,12 @@ body {
     width: 80px;
     font-size: 14px;
     background-color: #0004;
-    border-radius: 15px;
     padding: 10px 15px;
     text-align: center;
     justify-content: space-around;
     align-items: center;
     text-transform: capitalize;
     cursor: pointer;
-    transition: box-shadow .3s;
-}
-
-.favorites article:hover {
-    box-shadow: 0 0 0 4px #0008;
 }
 
 .favorites article i {
