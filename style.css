@@ -12,6 +12,21 @@
 
 html, body {
     height: 100vh;
+    overflow: hidden;
+}
+
+.small-button {
+    cursor: pointer;
+    padding: 10px;
+    color: #fffb;
+    background-color: #0004;
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    transition: box-shadow .3s;
+}
+
+.small-button:hover {
+    box-shadow: 0 0 0 3px #0008;
 }
 
 body {
@@ -28,9 +43,11 @@ body {
     display: flex;
     justify-content: space-between;
     user-select: none;
+    position: relative;
 }
 
 .welcome {
+    position: absolute;
     background-color: #0004;
     backdrop-filter: blur(10px);
     border-radius: 15px;
@@ -38,19 +55,16 @@ body {
     box-shadow: 0 0 5px #0002;
     height: fit-content;
     display: flex;
+    transition: transform .3s;
 }
 
 .welcome p {
     font-size: 20px;
 }
 
-.welcome input {
-    background-color: transparent;
-    border: none;
-    font-size: 20px;
-}
-
 .time {
+    position: absolute;
+    right: 20px;
     background-color: #0004;
     width: 80px;
     text-align: center;
@@ -60,6 +74,7 @@ body {
     border-radius: 15px;
     padding: 15px;
     box-shadow: 0 0 5px #0002;
+    transition: transform .3s;
 }
 
 .search {
@@ -67,10 +82,11 @@ body {
     gap: 10px;
     text-align: center;
     font-size: 26px;
+    user-select: none;
 }
 
 #search {
-    margin-top: 100px;
+    margin-top: 20vh;
     border: none;
     background-color: #0004;
     backdrop-filter: blur(10px);
@@ -92,22 +108,11 @@ body {
 
 #search:focus {
     padding: 17px;
-    margin-top: 120px;
+    margin-top: 22vh;
 }
 
 .search i {
-    cursor: pointer;
-    padding: 10px;
-    color: #fffb;
-    background-color: #0004;
-    backdrop-filter: blur(10px);
-    border-radius: 10px;
-    transition: box-shadow .3s;
     margin-left: -60px;
-}
-
-.search i:hover {
-    box-shadow: 0 0 0 3px #0008;
 }
 
 .favorites {
@@ -118,12 +123,15 @@ body {
     backdrop-filter: blur(10px);
     width: fit-content;
     margin: 0 auto;
-    top: 70%;
-    position: sticky;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 20vh;
     border-radius: 15px;
     gap: 10px;
     padding: 10px;
     user-select: none;
+    transition: transform .3s;
 }
 
 .favorites a {
@@ -163,8 +171,132 @@ body {
     border-radius: 5px;
 }
 
+.settings-button {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}
+
+.settings {
+    position: absolute;
+    padding: 10px;
+    width: 300px;
+    bottom: 70px;
+    right: 20px;
+    background-color: #0004;
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    user-select: none;
+    transform: translateX(350px);
+    transition: all .3s;
+}
+
+.visible {
+    display: block;
+    transform: translateX(0);
+}
+
+.settings > p {
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+.settings-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.settings-list > section {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #0004;
+    border-radius: 15px;
+    padding: 10px;
+    gap: 10px;
+}
+
+.settings-list section > section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.settings-list section .checkbox {
+    background-color: #0004;
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+    height: 20px;
+    width: 20px;
+    border-radius: 5px;
+    text-align: center;
+    transition: box-shadow .3s;
+}
+
+.checkbox:hover,
+.checkbox:focus {
+    box-shadow: 0 0 0 3px #0008;
+}
+
+.invisible-welcome {
+    transform: translateX(-300px);
+}
+
+.invisible-time {
+    transform: translateX(200px);
+}
+
+.invisible-favorites {
+    transform: translateY(400px) translateX(-50%);
+}
+
+.search-engine-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.search-engine-list > section {
+    display: flex;
+    flex-direction: column !important;
+    vertical-align: middle;
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+}
+
+.search-engine {
+    display: flex;
+    gap: 10px;
+    cursor: pointer;
+    padding: 10px;
+    height: 30px;
+    border-radius: 5px;
+    margin-top: 5px;
+    text-align: center;
+}
+
+.search-engine i {
+    font-size: 24px;
+    width: 30px;
+}
+
+.search-engine img {
+    height: 24px;
+    width: 30px;
+}
+
+.selected {
+    background-color: #bbb1;
+}
+
 @media screen and (max-width: 768px) {
     #search {
         width: 80%;
+    }
+}
+
+@media screen and (max-height: 800px) {
+    .favorites {
+        bottom: 5%;
     }
 }

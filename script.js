@@ -46,7 +46,7 @@ function Time() {
     }
 }
 
-// running Time function every second (it updates the whole header)
+// running Time function every half a second (it updates the whole header)
 var timer = setInterval(Time, 500);
 
 
@@ -68,3 +68,44 @@ input.addEventListener("keyup", function(event) {
         Search();
     }
 });
+
+
+// Open and close settings function
+
+function Settings() {
+    let settings = document.getElementById("settings");
+    settings.classList.toggle("visible");
+}
+
+
+// Welcome toggle function
+
+function WelcomeToggle() {
+    let checkbox = document.getElementById("welcome-checkbox");
+    checkbox.classList.toggle("fa-check");
+
+    let welcome = document.querySelector(".welcome");
+    welcome.classList.toggle("invisible-welcome");
+}
+
+
+// Time toggle function
+
+function TimeToggle() {
+    let checkbox = document.getElementById("time-checkbox");
+    checkbox.classList.toggle("fa-check");
+
+    let time = document.querySelector(".time");
+    time.classList.toggle("invisible-time");
+}
+
+
+// Favorites toggle function
+
+function FavoritesToggle() {
+    let checkbox = document.getElementById("favorites-checkbox");
+    checkbox.classList.toggle("fa-check");
+
+    let favorites = document.querySelector(".favorites");
+    favorites.classList.toggle("invisible-favorites");
+}

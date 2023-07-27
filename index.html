@@ -23,7 +23,7 @@
 
     <div class="search">
         <input type="text" placeholder="Search" id="search" autofocus>
-        <i class="fa-solid fa-search" onclick="Search();" title="Search on Google"></i>
+        <i class="fa-solid fa-search small-button" onclick="Search();" title="Search on Google"></i>
     </div>
 
     <div class="favorites">
@@ -75,6 +75,77 @@
                 <p>kupujem prodajem</p>
             </article>
         </a>
+    </div>
+
+    <div class="settings-button" title="Settings" onclick="Settings();">
+        <i class="fa-solid fa-gear small-button"></i>
+    </div>
+
+    <div class="settings" id="settings">
+        <p>Settings</p>
+
+        <section class="settings-list">
+
+            <section class="display-list">
+                <section>
+                    <p>Show welcome message</p>
+                    <div class="checkbox" onclick="WelcomeToggle();"><i class="fa-solid fa-check" id="welcome-checkbox"></i></div>
+                </section>
+
+                <section>
+                    <p>Show time</p>
+                    <div class="checkbox" onclick="TimeToggle();"><i class="fa-solid fa-check" id="time-checkbox"></i></div>
+                </section>
+
+                <section>
+                    <p>Show favorites</p>
+                    <div class="checkbox" onclick="FavoritesToggle();"><i class="fa-solid fa-check" id="favorites-checkbox"></i></div>
+                </section>
+            </section>
+
+            <!--
+            <section class="search-engine-list">
+                <p>Search engine</p>
+                
+                <section>
+                    <div class="search-engine">
+                        <img src="images/duckduckgo.svg" alt="">
+                        <p>DuckDuckGo</p>
+                    </div>
+
+                    <div class="search-engine selected">
+                        <i class="fa-brands fa-google"></i>
+                        <p>Google</p>
+                    </div>
+
+                    <div class="search-engine">
+                        <img src="images/bing.svg" alt="">
+                        <p>Bing</p>
+                    </div>
+
+                    <div class="search-engine">
+                        <i class="fa-brands fa-yahoo"></i>
+                        <p>Yahoo!</p>
+                    </div>
+
+                    <div class="search-engine">
+                        <i class="fa-brands fa-yandex"></i>
+                        <p>Yandex</p>
+                    </div>
+                </section>
+                
+            </section>
+            -->
+            
+            <!--
+            <section class="favorites-list">
+                <section>
+                    <p>Edit favorites</p>
+                </section>
+            </section>
+            -->
+
+        </section>
     </div>
 
     <script src="script.js"></script>
