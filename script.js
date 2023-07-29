@@ -1,5 +1,43 @@
 document.onload = Time();
 
+window.addEventListener("load", () => {
+    // Creates an unique localStorage for whole page.
+    makeStorage();
+    
+    const checkboxes = [...document.querySelectorAll(".checkbox i")];
+    // JSON.parse() is used to create an object from previously stringified object that is stored in "checkboxes" key.
+    const storage = JSON.parse(localStorage.getItem("checkboxes"));
+    
+    checkboxes.forEach(checkbox => {
+        // Based on the fact that every checkbox has an id with an unique prefix (welcome, time, favorites) followed by "-" .split() is used to get the unique "type" of checkbox.
+        const type = checkbox.id.split("-")[0];
+        const isChecked = getCheckboxStatus(type, storage);
+
+        // Defining the target of checkbox.
+        const field = document.querySelector(`.${type}`);
+
+        if(isChecked) {
+            checkbox.classList.add("fa-check");
+            field.classList.remove(`invisible-${type}`);
+        }
+
+        else {
+            checkbox.classList.remove("fa-check");
+            field.classList.add(`invisible-${type}`);
+        }
+    });
+});
+
+function makeStorage() {    
+    // Checks whether "checkboxes" key exists or not. If it doesn't then the storage will be created.
+    if(localStorage.getItem("checkboxes") === null) {
+        // Every property represents one checkbox with a key that will be used as a "type" of checkbox and a value which is whether the checkbox is active or not.
+        const checkboxes = { welcome: true, time: true, favorites: true };
+        // JSON.stringify() got to be used if .setItem() type is an object.
+        localStorage.setItem("checkboxes", JSON.stringify(checkboxes));
+    }
+}
+
 function Time() {
     // getting & displaying the time
 
@@ -77,35 +115,37 @@ function Settings() {
     settings.classList.toggle("visible");
 }
 
+function getCheckboxStatus(type, storage) {
+    let status = false;
+    Object.keys(storage).forEach((key, index) => { if(key === type) status = Object.values(storage)[index] });
 
-// Welcome toggle function
-
-function WelcomeToggle() {
-    let checkbox = document.getElementById("welcome-checkbox");
-    checkbox.classList.toggle("fa-check");
-
-    let welcome = document.querySelector(".welcome");
-    welcome.classList.toggle("invisible-welcome");
+    return status;
 }
 
+function changeCheckboxStatus(type) {
+    // JSON.parse() is used to create an object from previously stringified object that is stored in "checkboxes" key.
+    const storage = JSON.parse(localStorage.getItem("checkboxes"));
+    // New object defined as "newStorage" is required because the algorithm will set the new object to localStorage "checkboxes" key.
+    // Spread operator (...) is used because the object is identical to the previous one (storage) but just with different value that every key contains.
+    let newStorage = {...storage};
 
-// Time toggle function
+    // Selecting the checkbox based on the parameter "type" (welcome, time, favorites).
+    const checkbox = document.getElementById(`${type}-checkbox`);
+    // Defining the target of checkbox.
+    const field = document.querySelector(`.${type}`);
+    const isChecked = checkbox.classList.contains("fa-check");
 
-function TimeToggle() {
-    let checkbox = document.getElementById("time-checkbox");
-    checkbox.classList.toggle("fa-check");
+    if(!isChecked) {
+        checkbox.classList.add("fa-check");
+        field.classList.remove(`invisible-${type}`);
+    }
 
-    let time = document.querySelector(".time");
-    time.classList.toggle("invisible-time");
-}
+    else {
+        checkbox.classList.remove("fa-check");
+        field.classList.add(`invisible-${type}`);
+    }
 
-
-// Favorites toggle function
-
-function FavoritesToggle() {
-    let checkbox = document.getElementById("favorites-checkbox");
-    checkbox.classList.toggle("fa-check");
-
-    let favorites = document.querySelector(".favorites");
-    favorites.classList.toggle("invisible-favorites");
+    // Redefining target "type" with the exact opposite value from the previous one.
+    newStorage = {...newStorage, [type]: !isChecked};
+    localStorage.setItem("checkboxes", JSON.stringify(newStorage));
 }

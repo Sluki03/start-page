@@ -48,8 +48,10 @@ The Start Page is a project that is supposed to replace your default start/home 
 4. You can change the name of the website link in the paragraph tag between **><** in `<p></p>`.
 5. Set the local **index.html** as the start page/new tab.
 
-<br><br>
+## Special thank you
+Thank you [drb0r1s](https://github.com/drb0r1s) for helping with localStorage in JS. ❤️
 
+#
 [Website link](https://sluki03.github.io/start-page/)
 
 If you want to stay updated make sure to **Watch** the project and **Star** it if you like it, thank you. 
