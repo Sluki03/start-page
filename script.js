@@ -149,3 +149,5 @@ function changeCheckboxStatus(type) {
     newStorage = {...newStorage, [type]: !isChecked};
     localStorage.setItem("checkboxes", JSON.stringify(newStorage));
 }
+
+// Adding template
