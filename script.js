@@ -93,7 +93,16 @@ var timer = setInterval(Time, 500);
 var input = document.getElementById("search");
 
 function Search() {
-    window.location.href = "https://www.google.com/search?q=" + input.value;
+    var searchEngineInput = document.getElementById("search-engine");
+    var searchEngine;
+
+    if (searchEngineInput.value == 0) {
+        searchEngine = "google.com";
+    }
+
+    searchEngine = searchEngineInput.value;
+
+    window.location.href = "https://www." + searchEngine + "/search?q=" + input.value;
 
     if (event.keyCode === 13 && input.value.includes(".") == true) {
         window.location.href = "https://" + input.value;
