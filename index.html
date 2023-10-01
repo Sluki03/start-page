@@ -26,71 +26,52 @@
         <i class="fa-solid fa-search small-button" onclick="Search();" title="Search on Google"></i>
     </div>
 
-    <div class="favorites">
-        <a href="https://youtube.com/">
-            <article>
-                <img src="images/youtube.png" alt="">
-                <p>youtube</p>
-            </article>
-        </a>
-
-        <a href="https://mail.google.com/mail/u/1/#inbox">
-            <article>
-                <img src="images/gmail.png" alt="">
-                <p>gmail personal</p>
-            </article>
-        </a>
-
-        <a href="https://mail.google.com/mail/u/0/#inbox">
-            <article>
-                <img src="images/gmail.png" alt="">
-                <p>gmail</p>
-            </article>
-        </a>
-        
-        <a href="https://translate.google.rs/u/1/?hl=sr&sl=en&tl=de&op=translate">
-            <article>
-                <img src="images/translate.png" alt="">
-                <p>translate</p>
-            </article>
-        </a>
-
-        <a href="https://www.eponuda.com/">
-            <article>
-                <img src="images/eponuda.jpg" alt="">
-                <p>eponuda</p>
-            </article>
-        </a>
-        
-        <a href="https://github.com/">
-            <article>
-                <i class="fa-brands fa-github"></i>
-                <p>github</p>
-            </article>
-        </a>
-        
-        <a href="https://novi.kupujemprodajem.com/">
-            <article>
-                <img src="images/kp.png" alt="">
-                <p>kupujem prodajem</p>
-            </article>
-        </a>
-
-        <a>
-            <article>
-                <i class="fa-solid fa-plus"></i>
-                <p>add new</p>
-            </article>
-        </a>
-
-        <template class="favorite">
-            <a href="https://github.com/">
+    <div class="favorites-wrapper">
+        <div class="favorites">
+            <a class="add-new">
                 <article>
-                    <i class="fa-brands fa-github"></i>
-                    <p>github</p>
+                    <i class="fa-solid fa-plus"></i>
+                    <p>add new</p>
                 </article>
             </a>
-        </template>
+    
+            <template data-template="favorite">
+                <a href="">
+                    <article>
+                        <img src="" alt="">
+                        <p></p>
+                    </article>
+                </a>
+            </template>
+    
+            <template data-template="add-new-favorite-modal">
+                <div class="add-new-favorite-modal">
+                    <div class="favorite-info">
+                        <div class="favorite-text">
+                            <div class="favorite-title">
+                                <label for="favorite-title">title:</label>
+                                <input type="text" id="favorite-title">
+                            </div>
+        
+                            <div class="favorite-link">
+                                <label for="favorite-link">link:</label>
+                                <input type="text" id="favorite-link">
+                            </div>
+                        </div>
+    
+                        <div class="favorite-img-input">
+                            <img src="./images/image-solid.svg" alt="NO IMAGE">
+                            <input type="file" accept=".jpg .png .jpeg .gif .ico">
+                        </div>
+                    </div>
+    
+                    <div class="favorite-buttons">
+                        <button class="disabled-favorite-button">add</button>
+                        <button>cancel</button>
+                    </div>
+                </div>
+            </template>
+        </div>
     </div>
 
     <div class="settings-button" title="Settings" onclick="Settings();">

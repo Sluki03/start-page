@@ -159,4 +159,188 @@ function changeCheckboxStatus(type) {
     localStorage.setItem("checkboxes", JSON.stringify(newStorage));
 }
 
-// Adding template
+// Adding favorite
+
+const favorites = document.querySelector(".favorites");
+const addNew = document.querySelector(".add-new");
+
+let favoriteList = [
+    {
+        title: "youtube",
+        image: "images/youtube.png",
+        link: "https://youtube.com/"
+    },
+
+    {
+        title: "gmail personal",
+        image: "images/gmail.png",
+        link: "https://mail.google.com/mail/u/1/#inbox"
+    },
+
+    {
+        title: "gmail",
+        image: "images/gmail.png",
+        link: "https://mail.google.com/mail/u/0/#inbox"
+    },
+
+    {
+        title: "translate",
+        image: "images/translate.png",
+        link: "https://translate.google.rs/u/1/?hl=sr&sl=en&tl=de&op=translate"
+    },
+
+    {
+        title: "eponuda",
+        image: "images/eponuda.jpg",
+        link: "https://www.eponuda.com/"
+    },
+    
+    {
+        title: "kupujem prodajem",
+        image: "images/kp.png",
+        link: "https://novi.kupujemprodajem.com/"
+    }
+];
+
+fillFavorites();
+
+function fillFavorites() {
+    [...favorites.children].forEach(favorite => {
+        if(
+            !favorite.classList.contains("add-new") &&
+            favorite.tagName.toLowerCase() !== "template"
+        ) favorite.remove();
+    });
+    
+    favoriteList.forEach(favorite => {
+        const anchor = document.querySelector('[data-template="favorite"]').content.firstElementChild.cloneNode(true);
+        anchor.setAttribute("href", favorite.link);
+    
+        favorites.appendChild(anchor);
+    
+        const article = [...anchor.children][0];
+        const [img, p] = [...article.children];
+    
+        img.setAttribute("src", favorite.image);
+        img.setAttribute("alt", favorite.title.toUpperCase());
+    
+        p.innerText = favorite.title;
+        
+        favorites.insertBefore(anchor, addNew);
+    });
+}
+
+const body = document.querySelector("body");
+
+addNew.onclick = () => {
+    const addNewFavoriteModalCheck = document.querySelector(".add-new-favorite-modal");
+    if(addNewFavoriteModalCheck) return;
+    
+    const addNewFavoriteModal = document.querySelector('[data-template="add-new-favorite-modal"]').content.firstElementChild.cloneNode(true);
+    body.appendChild(addNewFavoriteModal);
+
+    setTimeout(() => {
+        const inputs = document.querySelectorAll(".add-new-favorite-modal .favorite-info .favorite-text div input");
+        let inputValues = { title: "", link: "" };
+        
+        const addButton = document.querySelector(".add-new-favorite-modal .favorite-buttons button");
+
+        inputs.forEach(input => {
+            const inputTitle = input.id.split("-")[1];
+            
+            input.oninput = e => {
+                inputValues = {...inputValues, [inputTitle]: e.target.value};
+                
+                if(
+                    inputValues.title &&
+                    inputValues.link &&
+                    addButton.classList.contains("disabled-favorite-button")
+                ) addButton.classList.remove("disabled-favorite-button");
+
+                else if(
+                    (!inputValues.title ||
+                    !inputValues.link) &&
+                    !addButton.classList.contains("disabled-favorite-button")
+                ) addButton.classList.add("disabled-favorite-button");
+            }
+        });
+
+        setFavoriteIcon();
+
+        addNewFavoriteModalButtons();
+        window.addEventListener("click", closeAddNewFavoriteModal);
+    }, 1);
+}
+
+let addNewFavoriteModalStatus = false;
+
+function closeAddNewFavoriteModal(e) {
+    if(e.target.classList.contains("add-new-favorite-modal")) return;
+
+    const parentNodes = [];
+    let currentElement = e.target;
+
+    while(currentElement.parentNode !== null) {
+        parentNodes.push(currentElement.parentNode);
+        currentElement = currentElement.parentNode;
+    }
+
+    if(parentNodes[parentNodes.length - 1].classList === undefined) parentNodes.pop();
+
+    parentNodes.forEach(parentNode => { if(parentNode.classList.contains("add-new-favorite-modal")) addNewFavoriteModalStatus = true })
+    
+    if(!addNewFavoriteModalStatus) removeNewFavoriteModal();
+}
+
+function addNewFavoriteModalButtons() { 
+    const [add, cancel] = document.querySelectorAll(".add-new-favorite-modal .favorite-buttons button");
+
+    add.onclick = () => {
+        const inputs = document.querySelectorAll(".add-new-favorite-modal .favorite-info .favorite-text div input");
+        const imageInput = document.querySelector(".add-new-favorite-modal .favorite-img-input img");
+        
+        let inputValues = { title: "", image: imageInput.src, link: "" };
+        
+        inputs.forEach(input => {
+            const inputTitle = input.id.split("-")[1];
+            inputValues = {...inputValues, [inputTitle]: input.value};
+        });
+
+        favoriteList = [...favoriteList, inputValues];
+        fillFavorites();
+
+        removeNewFavoriteModal();
+    }
+
+    cancel.onclick = () => removeNewFavoriteModal();
+}
+
+function removeNewFavoriteModal() {
+    const addNewFavoriteModal = document.querySelector(".add-new-favorite-modal");
+    addNewFavoriteModal.remove();
+
+    window.removeEventListener("click", closeAddNewFavoriteModal);
+}
+
+function setFavoriteIcon() {
+    const addNewFavoriteModalImgInput = document.querySelector(".add-new-favorite-modal .favorite-img-input");
+    const [inputImg, inputFile] = [...addNewFavoriteModalImgInput.children];
+
+    inputFile.oninput = async () => {
+        inputImg.setAttribute("src", await getBaseUrl(inputFile["files"][0]));
+    }
+
+    function getBaseUrl(file)  {
+        return new Promise((resolve) => {
+            const reader = new FileReader();
+            let baseString = "";
+
+            reader.readAsDataURL(file);
+        
+            reader.onload = () => {
+                baseString = reader.result;
+                resolve(baseString)
+            };
+        });
+    }
+}

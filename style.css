@@ -115,17 +115,23 @@ body {
     margin-left: -60px;
 }
 
+.favorites-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .favorites {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
+    max-width: 90%;
     background-color: #0004;
     backdrop-filter: blur(10px);
     width: fit-content;
     margin: 0 auto;
     position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
     bottom: 20vh;
     border-radius: 15px;
     gap: 10px;
@@ -135,6 +141,7 @@ body {
 }
 
 .favorites a {
+    width: 110px;
     text-decoration: none;
     border-radius: 15px;
     overflow: hidden;
@@ -169,6 +176,129 @@ body {
 .favorites article img {
     width: 28px;
     border-radius: 5px;
+}
+
+.add-new-favorite-modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    height: fit-content;
+    width: 300px;
+    background-color: #0004;
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    padding: 20px 15px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.add-new-favorite-modal .favorite-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+.add-new-favorite-modal .favorite-info .favorite-img {
+    border-radius: 15px;
+    overflow: hidden;
+    transition: box-shadow .3s;
+    outline: none;
+}
+
+.add-new-favorite-modal .favorite-info .favorite-text {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.add-new-favorite-modal .favorite-info .favorite-text div {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+    gap: 5px;
+}
+
+.add-new-favorite-modal .favorite-info .favorite-text label {
+    text-transform: capitalize;
+}
+
+.add-new-favorite-modal .favorite-info .favorite-text input {
+    background-color: #0004;
+    outline: none;
+    border: none;
+    padding: 8px;
+    border-radius: 10px;
+}
+
+.add-new-favorite-modal .favorite-img-input {
+    height: 100px;
+    width: 140px;
+    background-color: #0004;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+    padding: 20px;
+    position: relative;
+    transition: box-shadow .3s;
+}
+
+.add-new-favorite-modal .favorite-img-input:hover {
+    box-shadow: 0 0 0 3px #0008;
+}
+
+.add-new-favorite-modal .favorite-img-input img {
+    height: 100px;
+    width: 100px;
+    object-fit: contain;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.add-new-favorite-modal input[type="file"] {
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.add-new-favorite-modal .favorite-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.add-new-favorite-modal .favorite-buttons button {
+    color: white;
+    font-size: 20px;
+    text-transform: capitalize;
+    background-color: #0004;
+    border: none;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+    position: relative;
+    padding: 10px 15px;
+    top: 0;
+    transition: 300ms;
+}
+
+.add-new-favorite-modal .favorite-buttons .disabled-favorite-button {
+    cursor: not-allowed;
+    box-shadow: none;
+    opacity: .5;
 }
 
 .settings-button {
@@ -234,7 +364,8 @@ body {
 }
 
 .checkbox:hover,
-.checkbox:focus {
+.checkbox:focus,
+.add-new-favorite-modal button:hover {
     box-shadow: 0 0 0 3px #0008;
 }
 
@@ -278,11 +409,5 @@ body {
 @media screen and (max-width: 768px) {
     #search {
         width: 80%;
-    }
-}
-
-@media screen and (max-height: 800px) {
-    .favorites {
-        bottom: 5%;
     }
 }
