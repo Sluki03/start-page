@@ -225,7 +225,6 @@ body {
 
 .settings-list section .checkbox {
     background-color: #0004;
-    backdrop-filter: blur(10px);
     cursor: pointer;
     height: 20px;
     width: 20px;
@@ -251,38 +250,25 @@ body {
     transform: translateY(400px) translateX(-50%);
 }
 
-.search-engine-list {
+.search-engine {
     display: flex;
     flex-direction: column;
 }
 
-.search-engine-list > section {
+.search-engine > section {
     display: flex;
-    flex-direction: column !important;
+    flex-direction: column /*!important*/;
     vertical-align: middle;
     backdrop-filter: blur(10px);
     border-radius: 15px;
 }
 
-.search-engine {
-    display: flex;
-    gap: 10px;
-    cursor: pointer;
-    padding: 10px;
-    height: 30px;
-    border-radius: 5px;
-    margin-top: 5px;
-    text-align: center;
-}
-
-.search-engine i {
-    font-size: 24px;
-    width: 30px;
-}
-
-.search-engine img {
-    height: 24px;
-    width: 30px;
+.search-engine > input {
+    background-color: #0004;
+    outline: none;
+    border: none;
+    padding: 8px;
+    border-radius: 10px;
 }
 
 .selected {
