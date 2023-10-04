@@ -183,13 +183,13 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 30px;
     height: fit-content;
-    width: 300px;
+    width: 400px;
     background-color: #0004;
     backdrop-filter: blur(10px);
     border-radius: 10px;
-    padding: 20px 15px;
+    padding: 10px 50px;
+    gap: 20px;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -198,10 +198,7 @@ body {
 
 .add-new-favorite-modal .favorite-info {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 30px;
+    justify-content: space-between;
 }
 
 .add-new-favorite-modal .favorite-info .favorite-img {
@@ -215,7 +212,6 @@ body {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: center;
     gap: 15px;
 }
 
@@ -224,7 +220,7 @@ body {
     flex-direction: column;
     align-items: left;
     justify-content: center;
-    gap: 5px;
+    gap: 2px;
 }
 
 .add-new-favorite-modal .favorite-info .favorite-text label {
@@ -235,8 +231,14 @@ body {
     background-color: #0004;
     outline: none;
     border: none;
+    width: 250px;
     padding: 8px;
     border-radius: 10px;
+    transition: box-shadow .3s;
+}
+
+.add-new-favorite-modal .favorite-info .favorite-text input:focus {
+    box-shadow: 0 0 0 3px #0008;
 }
 
 .add-new-favorite-modal .favorite-img-input {
