@@ -1,34 +1,19 @@
+import { fList } from "./data.js";
+
 document.onload = Time();
+
+(function() {
+    const storage = JSON.parse(localStorage.getItem("checkboxes"));
+    if(storage !== null) checkCheckBoxStatus();
+}());
 
 window.addEventListener("load", () => {
     // Creates an unique localStorage for whole page.
     makeStorage();
-    
-    const checkboxes = [...document.querySelectorAll(".checkbox i")];
-    // JSON.parse() is used to create an object from previously stringified object that is stored in "checkboxes" key.
-    const storage = JSON.parse(localStorage.getItem("checkboxes"));
-    
-    checkboxes.forEach(checkbox => {
-        // Based on the fact that every checkbox has an id with an unique prefix (welcome, time, favorites) followed by "-" .split() is used to get the unique "type" of checkbox.
-        const type = checkbox.id.split("-")[0];
-        const isChecked = getCheckboxStatus(type, storage);
-
-        // Defining the target of checkbox.
-        const field = document.querySelector(`.${type}`);
-
-        if(isChecked) {
-            checkbox.classList.add("fa-check");
-            field.classList.remove(`invisible-${type}`);
-        }
-
-        else {
-            checkbox.classList.remove("fa-check");
-            field.classList.add(`invisible-${type}`);
-        }
-    });
+    checkCheckBoxStatus();
 });
 
-function makeStorage() {    
+function makeStorage() {
     // Checks whether "checkboxes" key exists or not. If it doesn't then the storage will be created.
     if(localStorage.getItem("checkboxes") === null) {
         // Every property represents one checkbox with a key that will be used as a "type" of checkbox and a value which is whether the checkbox is active or not.
@@ -36,10 +21,12 @@ function makeStorage() {
         // JSON.stringify() got to be used if .setItem() type is an object.
         localStorage.setItem("checkboxes", JSON.stringify(checkboxes));
     }
+
+    if(localStorage.getItem("favorites") === null) localStorage.setItem("favorites", JSON.stringify(fList));
 }
 
 function Time() {
-    // getting & displaying the time
+    // getting & displaying the timeF
 
     var p = document.getElementById("time");
 
@@ -90,7 +77,10 @@ var timer = setInterval(Time, 500);
 
 // Search
 
-var input = document.getElementById("search");
+const search = document.querySelector(".search i");
+search.onclick = Search;
+
+const input = document.getElementById("search");
 
 function Search() {
     var searchEngineInput = document.getElementById("search-engine");
@@ -119,9 +109,38 @@ input.addEventListener("keyup", function(event) {
 
 // Open and close settings function
 
+const settingsButton = document.querySelector(".settings-button");
+settingsButton.onclick = Settings;
+
 function Settings() {
-    let settings = document.getElementById("settings");
+    const settings = document.getElementById("settings");
     settings.classList.toggle("visible");
+
+    setTimeout(() => window.addEventListener("click", closeSettings), 1);
+}
+
+function closeSettings(e) {
+    if(e.target.classList.contains("settings")) return;
+
+    const parentNodes = [];
+    let currentElement = e.target;
+
+    while(currentElement.parentNode !== null) {
+        parentNodes.push(currentElement.parentNode);
+        currentElement = currentElement.parentNode;
+    }
+
+    if(parentNodes[parentNodes.length - 1].classList === undefined) parentNodes.pop();
+    
+    let status = true;
+    parentNodes.forEach(parentNode => { if(parentNode.classList.contains("settings")) status = false });
+
+    if(status) {
+        const settings = document.getElementById("settings");
+
+        settings.classList.toggle("visible");
+        window.removeEventListener("click", closeSettings);
+    }
 }
 
 function getCheckboxStatus(type, storage) {
@@ -131,12 +150,17 @@ function getCheckboxStatus(type, storage) {
     return status;
 }
 
-function changeCheckboxStatus(type) {
+const checkboxes = document.querySelectorAll(".checkbox");
+checkboxes.forEach(checkbox => { checkbox.onclick = changeCheckboxStatus });
+
+function changeCheckboxStatus(e) {
     // JSON.parse() is used to create an object from previously stringified object that is stored in "checkboxes" key.
     const storage = JSON.parse(localStorage.getItem("checkboxes"));
     // New object defined as "newStorage" is required because the algorithm will set the new object to localStorage "checkboxes" key.
     // Spread operator (...) is used because the object is identical to the previous one (storage) but just with different value that every key contains.
     let newStorage = {...storage};
+
+    const type = [...e.target.children][0].id.split("-")[0];
 
     // Selecting the checkbox based on the parameter "type" (welcome, time, favorites).
     const checkbox = document.getElementById(`${type}-checkbox`);
@@ -159,52 +183,40 @@ function changeCheckboxStatus(type) {
     localStorage.setItem("checkboxes", JSON.stringify(newStorage));
 }
 
+function checkCheckBoxStatus() {
+    const checkboxes = [...document.querySelectorAll(".checkbox i")];
+    // JSON.parse() is used to create an object from previously stringified object that is stored in "checkboxes" key.
+    const storage = JSON.parse(localStorage.getItem("checkboxes"));
+    
+    checkboxes.forEach(checkbox => {
+        // Based on the fact that every checkbox has an id with an unique prefix (welcome, time, favorites) followed by "-" .split() is used to get the unique "type" of checkbox.
+        const type = checkbox.id.split("-")[0];
+        const isChecked = getCheckboxStatus(type, storage);
+
+        // Defining the target of checkbox.
+        const field = document.querySelector(`.${type}`);
+
+        if(isChecked) {
+            checkbox.classList.add("fa-check");
+            field.classList.remove(`invisible-${type}`);
+        }
+
+        else {
+            checkbox.classList.remove("fa-check");
+            field.classList.add(`invisible-${type}`);
+        }
+    });
+}
+
 // Adding favorite
 
 const favorites = document.querySelector(".favorites");
+const favoritesList = JSON.parse(localStorage.getItem("favorites"));
 const addNew = document.querySelector(".add-new");
 
-let favoriteList = [
-    {
-        title: "youtube",
-        image: "images/youtube.png",
-        link: "https://youtube.com/"
-    },
+fillFavorites(favoritesList);
 
-    {
-        title: "gmail personal",
-        image: "images/gmail.png",
-        link: "https://mail.google.com/mail/u/1/#inbox"
-    },
-
-    {
-        title: "gmail",
-        image: "images/gmail.png",
-        link: "https://mail.google.com/mail/u/0/#inbox"
-    },
-
-    {
-        title: "translate",
-        image: "images/translate.png",
-        link: "https://translate.google.rs/u/1/?hl=sr&sl=en&tl=de&op=translate"
-    },
-
-    {
-        title: "eponuda",
-        image: "images/eponuda.jpg",
-        link: "https://www.eponuda.com/"
-    },
-    
-    {
-        title: "kupujem prodajem",
-        image: "images/kp.png",
-        link: "https://novi.kupujemprodajem.com/"
-    }
-];
-
-fillFavorites();
-
-function fillFavorites() {
+function fillFavorites(list) {
     [...favorites.children].forEach(favorite => {
         if(
             !favorite.classList.contains("add-new") &&
@@ -212,22 +224,40 @@ function fillFavorites() {
         ) favorite.remove();
     });
     
-    favoriteList.forEach(favorite => {
+    list.forEach((favorite, index) => {
         const anchor = document.querySelector('[data-template="favorite"]').content.firstElementChild.cloneNode(true);
-        anchor.setAttribute("href", favorite.link);
+        anchor.id = `favorites_${index}`;
+        
+        const secureLink = favorite.link.startsWith("https://") ? favorite.link : "https://" + favorite.link;
+        anchor.setAttribute("href", secureLink);
     
         favorites.appendChild(anchor);
     
-        const article = [...anchor.children][0];
+        const [article, closeFavoriteButton] = [...anchor.children];
         const [img, p] = [...article.children];
     
         img.setAttribute("src", favorite.image);
         img.setAttribute("alt", favorite.title.toUpperCase());
     
         p.innerText = favorite.title;
+
+        closeFavoriteButton.onclick = closeFavorite;
         
         favorites.insertBefore(anchor, addNew);
     });
+
+    localStorage.setItem("favorites", JSON.stringify(list));
+
+    function closeFavorite(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const target = e.target.parentNode;
+        const targetId = target.id;
+
+        const newFavoritesList = list.filter(favorite => favorite.link !== targetHref);
+        fillFavorites(newFavoritesList);
+    }
 }
 
 const body = document.querySelector("body");
@@ -240,6 +270,8 @@ addNew.onclick = () => {
     body.appendChild(addNewFavoriteModal);
 
     setTimeout(() => {
+        addNewFavoriteModal.classList.add("add-new-favorite-modal-active");
+        
         const inputs = document.querySelectorAll(".add-new-favorite-modal .favorite-info .favorite-text div input");
         let inputValues = { title: "", link: "" };
         
@@ -296,6 +328,8 @@ function addNewFavoriteModalButtons() {
     const [add, cancel] = document.querySelectorAll(".add-new-favorite-modal .favorite-buttons button");
 
     add.onclick = () => {
+        if(add.classList.contains("disabled-favorite-button")) return;
+        
         const inputs = document.querySelectorAll(".add-new-favorite-modal .favorite-info .favorite-text div input");
         const imageInput = document.querySelector(".add-new-favorite-modal .favorite-img-input img");
         
@@ -306,8 +340,10 @@ function addNewFavoriteModalButtons() {
             inputValues = {...inputValues, [inputTitle]: input.value};
         });
 
-        favoriteList = [...favoriteList, inputValues];
-        fillFavorites();
+        const newFavoritesList = [...favoritesList, inputValues];
+        
+        localStorage.setItem("favorites", JSON.stringify(newFavoritesList));
+        fillFavorites(newFavoritesList);
 
         removeNewFavoriteModal();
     }
@@ -317,7 +353,10 @@ function addNewFavoriteModalButtons() {
 
 function removeNewFavoriteModal() {
     const addNewFavoriteModal = document.querySelector(".add-new-favorite-modal");
-    addNewFavoriteModal.remove();
+    addNewFavoriteModal.classList.remove("add-new-favorite-modal-active");
+    addNewFavoriteModal.classList.add("add-new-favorite-modal-disabled");
+    
+    setTimeout(() => addNewFavoriteModal.remove(), 300);
 
     window.removeEventListener("click", closeAddNewFavoriteModal);
 }
