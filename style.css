@@ -154,7 +154,7 @@ body {
     justify-content: center;
     height: 15px;
     width: 15px;
-    background-color: black;
+    background-color: transparent;
     border-radius: 4px;
     backdrop-filter: blur(10px);
     opacity: 0;
@@ -223,7 +223,7 @@ body {
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
-    transition: opacity .2s ease-in, top .2s ease-in;
+    transition: opacity .2s ease-in-out, top .2s ease-in-out;
 }
 
 .add-new-favorite-modal-active {
