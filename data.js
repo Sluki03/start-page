@@ -1,3 +1,5 @@
+// Ne sme isti link dva puta. Dodaj proveru.
+
 export const fList = [
     {
         title: "youtube",
