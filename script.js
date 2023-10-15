@@ -256,6 +256,11 @@ function fillFavorites(list) {
     function openConfirmationModal(target) {
         const confirmationModal = document.querySelector('[data-template="confirmation-modal"]').content.firstElementChild.cloneNode(true);
         const article = [...target.children][0];
+
+        const closeFavoriteButton = [...target.children][1];
+        
+        closeFavoriteButton.style.opacity = "0";
+        setTimeout(() => closeFavoriteButton.classList.add("close-favorite-invisible"), 300);
         
         article.appendChild(confirmationModal);
 
@@ -276,23 +281,24 @@ function fillFavorites(list) {
                 const newFavoritesList = list.filter(favorite => favorite.link !== targetHref);
                 
                 fillFavorites(newFavoritesList);
-                closeConfirmationModal(confirmationModal);
+                closeConfirmationModal(confirmationModal, closeFavoriteButton);
             }
 
             no.onclick = e => {
                 e.stopPropagation();
                 e.preventDefault();
 
-                closeConfirmationModal(confirmationModal);
+                closeConfirmationModal(confirmationModal, closeFavoriteButton);
             }
         }, 300);
     }
 
-    function closeConfirmationModal(confirmationModal) {
+    function closeConfirmationModal(confirmationModal, closeFavoriteButton) {
         confirmationModal.classList.remove("modal-active");
         confirmationModal.classList.add("modal-disabled");
-        
-        setTimeout(confirmationModal.remove, 300);
+
+        closeFavoriteButton.style.opacity = "";
+        closeFavoriteButton.classList.remove("close-favorite-invisible");
     }
 }
 

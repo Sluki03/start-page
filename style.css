@@ -175,6 +175,10 @@ body {
     right: -2px;
 }
 
+.favorites a .close-favorite-invisible {
+    display: none;
+}
+
 .favorites article {
     display: flex;
     flex-direction: column;
@@ -373,13 +377,17 @@ body {
 }
 
 .confirmation-modal .modal-buttons button:first-child {
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
 }
 
 .confirmation-modal .modal-buttons button:last-child {
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.confirmation-modal .modal-buttons button i {
+    line-height: 0;
 }
 
 .settings-button {
