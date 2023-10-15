@@ -224,12 +224,9 @@ function fillFavorites(list) {
         ) favorite.remove();
     });
     
-    list.forEach((favorite, index) => {
+    list.forEach(favorite => {
         const anchor = document.querySelector('[data-template="favorite"]').content.firstElementChild.cloneNode(true);
-        anchor.id = `favorites_${index}`;
-        
-        const secureLink = favorite.link.startsWith("https://") ? favorite.link : "https://" + favorite.link;
-        anchor.setAttribute("href", secureLink);
+        anchor.setAttribute("href", favorite.link);
     
         favorites.appendChild(anchor);
     
@@ -253,10 +250,49 @@ function fillFavorites(list) {
         e.stopPropagation();
 
         const target = e.target.parentNode;
-        const targetId = target.id;
+        openConfirmationModal(target);
+    }
 
-        const newFavoritesList = list.filter(favorite => favorite.link !== targetHref);
-        fillFavorites(newFavoritesList);
+    function openConfirmationModal(target) {
+        const confirmationModal = document.querySelector('[data-template="confirmation-modal"]').content.firstElementChild.cloneNode(true);
+        const article = [...target.children][0];
+        
+        article.appendChild(confirmationModal);
+
+        setTimeout(() => {
+            confirmationModal.classList.add("modal-active");
+
+            const [p, buttons] = [...confirmationModal.children];
+
+            p.innerText = `delete?`;
+
+            const [yes, no] = [...buttons.children];
+
+            yes.onclick = e => {
+                e.stopPropagation();
+                e.preventDefault();
+                
+                const targetHref = target.href;
+                const newFavoritesList = list.filter(favorite => favorite.link !== targetHref);
+                
+                fillFavorites(newFavoritesList);
+                closeConfirmationModal(confirmationModal);
+            }
+
+            no.onclick = e => {
+                e.stopPropagation();
+                e.preventDefault();
+
+                closeConfirmationModal(confirmationModal);
+            }
+        }, 300);
+    }
+
+    function closeConfirmationModal(confirmationModal) {
+        confirmationModal.classList.remove("modal-active");
+        confirmationModal.classList.add("modal-disabled");
+        
+        setTimeout(confirmationModal.remove, 300);
     }
 }
 
@@ -270,7 +306,7 @@ addNew.onclick = () => {
     body.appendChild(addNewFavoriteModal);
 
     setTimeout(() => {
-        addNewFavoriteModal.classList.add("add-new-favorite-modal-active");
+        addNewFavoriteModal.classList.add("modal-active");
         
         const inputs = document.querySelectorAll(".add-new-favorite-modal .favorite-info .favorite-text div input");
         let inputValues = { title: "", link: "" };
@@ -325,7 +361,7 @@ function closeAddNewFavoriteModal(e) {
 }
 
 function addNewFavoriteModalButtons() { 
-    const [add, cancel] = document.querySelectorAll(".add-new-favorite-modal .favorite-buttons button");
+    const [add, cancel] = document.querySelectorAll(".add-new-favorite-modal .modal-buttons button");
 
     add.onclick = () => {
         if(add.classList.contains("disabled-favorite-button")) return;
@@ -337,7 +373,11 @@ function addNewFavoriteModalButtons() {
         
         inputs.forEach(input => {
             const inputTitle = input.id.split("-")[1];
-            inputValues = {...inputValues, [inputTitle]: input.value};
+            
+            let link = input.value.startsWith("https://") ? input.value : "https://" + input.value;
+            if(!link.endsWith("/")) link += "/";
+
+            inputValues = {...inputValues, [inputTitle]: inputTitle === "link" ? link : input.value};
         });
 
         const newFavoritesList = [...favoritesList, inputValues];
@@ -353,8 +393,8 @@ function addNewFavoriteModalButtons() {
 
 function removeNewFavoriteModal() {
     const addNewFavoriteModal = document.querySelector(".add-new-favorite-modal");
-    addNewFavoriteModal.classList.remove("add-new-favorite-modal-active");
-    addNewFavoriteModal.classList.add("add-new-favorite-modal-disabled");
+    addNewFavoriteModal.classList.remove("modal-active");
+    addNewFavoriteModal.classList.add("modal-disabled");
     
     setTimeout(() => addNewFavoriteModal.remove(), 300);
 

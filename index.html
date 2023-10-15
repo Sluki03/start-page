@@ -42,12 +42,12 @@
                         <p></p>
                     </article>
 
-                    <i class="fa-solid fa-xmark close-favorite-disabled" style="color: #b66e6e;"></i>
+                    <i class="fa-solid fa-xmark favorite-x close-favorite-disabled" style="color: #ccc;"></i>
                 </a>
             </template>
     
             <template data-template="add-new-favorite-modal">
-                <div class="add-new-favorite-modal">
+                <div class="modal add-new-favorite-modal">
                     <p>Add a new favorite</p>
 
                     <div class="favorite-info">
@@ -70,9 +70,20 @@
 
                     </div>
     
-                    <div class="favorite-buttons">
+                    <div class="modal-buttons">
                         <button class="disabled-favorite-button">add</button>
                         <button>cancel</button>
+                    </div>
+                </div>
+            </template>
+
+            <template data-template="confirmation-modal">
+                <div class="modal confirmation-modal">
+                    <p></p>
+
+                    <div class="modal-buttons">
+                        <button><i class="fa-solid fa-check"></i></button>
+                        <button><i class="fa-solid fa-xmark" style="color: #ccc;"></i></button>
                     </div>
                 </div>
             </template>
