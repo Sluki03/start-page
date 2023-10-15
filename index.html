@@ -98,7 +98,6 @@
         <p>Settings</p>
 
         <section class="settings-list">
-
             <section class="display-list">
                 <section>
                     <p>Show welcome message</p>
@@ -115,22 +114,19 @@
                     <div class="checkbox"><i class="fa-solid fa-check" id="favorites-checkbox"></i></div>
                 </section>
             </section>
-
             
-            <section class="search-engine">
+            <section class="search-engine-wrapper">
                 <p>Search engine</p>
                 
-                <input type="text" placeholder="Search engine url" id="search-engine" value="google.com">
-            </section>
-            
-            <!--
-            <section class="favorites-list">
-                <section>
-                    <p>Edit favorites</p>
+                <section class="search-engine-list">
+                    <template data-template="search-engine">
+                        <div class="search-engine">
+                            <img src="" alt="">
+                            <p></p>
+                        </div>
+                    </template>
                 </section>
             </section>
-            -->
-
         </section>
     </div>
 

@@ -1,4 +1,4 @@
-import { fList } from "./data.js";
+import { fList, searchEngineList } from "./data.js";
 
 document.onload = Time();
 
@@ -23,6 +23,7 @@ function makeStorage() {
     }
 
     if(localStorage.getItem("favorites") === null) localStorage.setItem("favorites", JSON.stringify(fList));
+    if(localStorage.getItem("searchEngine") === null) localStorage.setItem("searchEngine", "https://www.google.com/search?q=");
 }
 
 function Time() {
@@ -83,20 +84,8 @@ search.onclick = Search;
 const input = document.getElementById("search");
 
 function Search() {
-    var searchEngineInput = document.getElementById("search-engine");
-    var searchEngine;
-
-    if (searchEngineInput.value == 0) {
-        searchEngine = "google.com";
-    }
-
-    searchEngine = searchEngineInput.value;
-
-    window.location.href = "https://www." + searchEngine + "/search?q=" + input.value;
-
-    if (event.keyCode === 13 && input.value.includes(".") == true) {
-        window.location.href = "https://" + input.value;
-    }
+    const searchEngine = localStorage.getItem("searchEngine");
+    window.location.href = searchEngine + input.value;
 }
 
 
@@ -114,11 +103,46 @@ settingsButton.onclick = Settings;
 
 function Settings() {
     const settings = document.getElementById("settings");
+    createSearchEngineList();
 
     if(settings.classList.contains("visible")) return;
     settings.classList.toggle("visible");
 
     setTimeout(() => window.addEventListener("click", closeSettings), 1);
+}
+
+function createSearchEngineList() {
+    const searchEngineListElement = document.querySelector(".search-engine-list");
+
+    searchEngineList.forEach(searchEngine => {
+        const searchEngineTemplate = document.querySelector('[data-template="search-engine"]').content.firstElementChild.cloneNode(true);
+        
+        if(searchEngine.selected) searchEngineTemplate.classList.add("selected");
+        searchEngineTemplate.onclick = changeActiveSearchEngine;
+
+        searchEngineTemplate.setAttribute("data-search-engine", searchEngine.link);
+        
+        const [img, p] = [...searchEngineTemplate.children];
+
+        img.setAttribute("src", searchEngine.image);
+        img.setAttribute("alt", searchEngine.title.toUpperCase());
+
+        p.innerText = searchEngine.title;
+
+        searchEngineListElement.appendChild(searchEngineTemplate);
+    });
+
+    function changeActiveSearchEngine(e) {
+        const activeSearchEngine = searchEngineListElement.querySelector(".selected");
+        const currentSearchEngine = e.target.tagName.toLowerCase() === "div" ? e.target : e.target.parentElement;
+        
+        if(currentSearchEngine.isEqualNode(activeSearchEngine)) return;
+        
+        activeSearchEngine.classList.remove("selected");
+        currentSearchEngine.classList.add("selected");
+
+        localStorage.setItem("searchEngine", currentSearchEngine.dataset.searchEngine);
+    }
 }
 
 function closeSettings(e) {

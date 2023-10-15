@@ -37,3 +37,36 @@ export const fList = [
         link: "https://novi.kupujemprodajem.com/"
     }
 ];
+
+export const searchEngineList = [
+    {
+        title: "Google",
+        image: "images/google.svg",
+        link: "https://www.google.com/search?q=",
+        selected: true
+    },
+    
+    {
+        title: "DuckDuckGo",
+        image: "images/duckduckgo.svg",
+        link: "https://duckduckgo.com/?va=n&t=ha&q="
+    },
+
+    {
+        title: "Bing",
+        image: "images/bing.svg",
+        link: "https://www.bing.com/search?q="
+    },
+
+    {
+        title: "Yahoo",
+        image: "images/yahoo.svg",
+        link: "https://search.yahoo.com/search?p="
+    },
+
+    {
+        title: "Yandex",
+        image: "images/yandex.svg",
+        link: "https://yandex.com/search/?text="
+    }
+];

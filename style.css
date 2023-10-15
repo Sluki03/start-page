@@ -472,29 +472,56 @@ body {
     transform: translateY(400px);
 }
 
-.search-engine {
+.search-engine-wrapper {
     display: flex;
+    align-items: center;
+    justify-content: center;
     flex-direction: column;
+    gap: 10px;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 5px;
+    text-align: center;
 }
 
-.search-engine > section {
+.search-engine-list {
     display: flex;
-    flex-direction: column /*!important*/;
-    vertical-align: middle;
-    backdrop-filter: blur(10px);
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column !important;
+    gap: 5px;
+    width: 100%;
+}
+
+.search-engine-list .search-engine {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    width: 100%;
     border-radius: 15px;
+    padding: 10px 0;
+    transition: .3s;
 }
 
-.search-engine > input {
-    background-color: #0004;
-    outline: none;
-    border: none;
-    padding: 8px;
-    border-radius: 10px;
+.search-engine-list .search-engine:hover {
+    background-color: #eee3;
 }
 
-.selected {
-    background-color: #bbb1;
+.search-engine-list .search-engine.selected {
+    background-color: #eee3;
+    cursor: default;
+}
+
+.search-engine-list .search-engine i {
+    font-size: 24px;
+    width: 30px;
+}
+
+.search-engine-list .search-engine img {
+    height: 24px;
+    width: 30px;
 }
 
 @media screen and (max-width: 768px) {
