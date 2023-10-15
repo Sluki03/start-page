@@ -114,6 +114,8 @@ settingsButton.onclick = Settings;
 
 function Settings() {
     const settings = document.getElementById("settings");
+
+    if(settings.classList.contains("visible")) return;
     settings.classList.toggle("visible");
 
     setTimeout(() => window.addEventListener("click", closeSettings), 1);
